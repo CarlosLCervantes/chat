@@ -1,17 +1,17 @@
 class SessionsController < ApplicationController
   def create
-    command = Authentication::AuthenticateUser.call(session_params[:handle])
+    auth_cmd = Authentication::AuthenticateUser.call(session_params[:handle])
 
-    if command.success?
-      @user = command.result
+    if auth_cmd.success?
+      @user = auth_cmd.result
       render @user
     else
-      byebug
-      render json: { error: command.errors[:authentication] }, status: :not_found
+      render json: { error: auth_cmd.errors[:authentication] }, status: :not_found
     end
   end
 
   private
+
   def session_params
     params.require(:session).permit(:handle)
   end

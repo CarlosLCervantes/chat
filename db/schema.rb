@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 2019_04_06_053803) do
 
   create_table "room_messages", force: :cascade do |t|
     t.string "body", null: false
-    t.bigint "users_rooms_id"
+    t.bigint "rooms_users_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_rooms_id"], name: "index_room_messages_on_users_rooms_id"
+    t.index ["rooms_users_id"], name: "index_room_messages_on_rooms_users_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_04_06_053803) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "rooms_users", id: false, force: :cascade do |t|
+  create_table "rooms_users", force: :cascade do |t|
     t.bigint "rooms_id"
     t.bigint "users_id"
     t.index ["rooms_id"], name: "index_rooms_users_on_rooms_id"
