@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Container from 'react-bootstrap/Container'
+import Alert from 'react-bootstrap/Alert'
 import Login from '../components/auth/Login'
 import Room from '../components/room/Room'
 
@@ -9,7 +11,7 @@ class ChatApp extends Component {
 
     this.state = {
       user: {
-        handle: 'CCER',
+        handle: null,
       },
       messages: [],
       loggedIn: false,
@@ -17,16 +19,30 @@ class ChatApp extends Component {
     }
 
     this.onAuthSuccess = this.onAuthSuccess.bind(this)
+    this.setError = this.setError.bind(this)
   }
 
   render() {
     return (
-      <div>
+      <Container>
+        { this.renderError() }
         <h1>Chatting is magic!</h1>
         <br />
         { this.renderCurrentPage() }
-      </div>
+      </Container>
     )
+  }
+
+  renderError() {
+    const { error } = this.state
+
+    if(error) {
+      return (
+        <Alert variant='warning'>
+          There was an issue. Please try again.
+        </Alert>
+      )
+    }
   }
 
   renderCurrentPage() {

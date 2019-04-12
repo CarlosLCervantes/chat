@@ -5,6 +5,10 @@ import ActionCable from "actioncable"
 import { API_HOST } from '../../constants/api'
 
 import Messages from './Messages'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class Room extends Component {
   constructor(props) {
@@ -15,7 +19,7 @@ class Room extends Component {
         messaging: null
       },
       messages: this.props.messages || [],
-      newMessage: null,
+      newMessage: '',
     }
 
     this.handleNewMessageBlur = this.handleNewMessageBlur.bind(this)
@@ -63,8 +67,19 @@ class Room extends Component {
       <div>
         <Messages messages={messages} />
 
-        <input type='text' onBlur={this.handleNewMessageBlur} />
-        <button onClick={this.sendMessage}>Send Message</button>
+        <Form>
+          <Row>
+            <Col style={{padding: 0}}>
+              <Form.Control type="text" placeholder="Enter a message"
+                        onBlur={this.handleNewMessageBlur} />
+            </Col>
+            <Col>
+              <Button inline variant="primary" onClick={this.sendMessage}>
+                Send Message
+              </Button>
+            </Col>
+          </Row>
+        </Form>
       </div>
     )
   }

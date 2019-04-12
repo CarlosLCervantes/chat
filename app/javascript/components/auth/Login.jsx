@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from "prop-types";
+import PropTypes from "prop-types"
 
 import AuthResource from '../../api/AuthResource'
+
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 class Login extends Component {
   constructor(props) {
@@ -12,20 +15,25 @@ class Login extends Component {
     }
 
     this.AuthResource = new AuthResource()
-
     this.onUserHandleBlur = this.onUserHandleBlur.bind(this)
     this.authenticate = this.authenticate.bind(this)
   }
 
   render() {
     return (
-      <div>
-        <p>Hi, I'm Login</p>
-
-        <input type='text' onBlur={this.onUserHandleBlur} />
-
-        <button onClick={this.authenticate}>Authenticate</button>
-      </div>
+      <Form>
+        <Form.Group controlId="formBasicHandle">
+          <Form.Label>Chat Handle</Form.Label>
+          <Form.Control type="text" placeholder="Enter handle"
+                        onBlur={this.onUserHandleBlur} />
+          <Form.Text className="text-muted">
+            This is the name that will show up in the chat
+          </Form.Text>
+        </Form.Group>
+        <Button variant="primary" onClick={this.authenticate}>
+          Submit
+        </Button>
+      </Form>
     )
   }
 
