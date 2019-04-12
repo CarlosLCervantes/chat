@@ -8,7 +8,9 @@ module Authentication
 
     def call
       if user = User.find_by(handle: @handle)
-        user
+        room = Room.default_room
+        rooms_user = RoomsUser.where(room_id: room.id, user_id: user.id).first
+        { user: user, room: room, rooms_user: rooms_user }
       else
         errors.add(:authentication, I18n.t("authenticate_user.failure"))
         nil

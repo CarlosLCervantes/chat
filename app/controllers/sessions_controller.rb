@@ -3,7 +3,11 @@ class SessionsController < ApplicationController
     auth_cmd = Authentication::AuthenticateUser.call(session_params[:handle])
 
     if auth_cmd.success?
-      @user = auth_cmd.result
+      data = auth_cmd.result
+      @user = data[:user]
+      @room = data[:room]
+      @rooms_user = data[:rooms_user]
+
       render @user
     else
       render json: { error: auth_cmd.errors[:authentication] }, status: :not_found
