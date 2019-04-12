@@ -1,6 +1,6 @@
 class MessagingChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "messaging_channel"
+    stream_from channel_identifier
   end
 
   def unsubscribed
@@ -13,6 +13,13 @@ class MessagingChannel < ApplicationCable::Channel
 
     message = RoomMessage.create!(rooms_user: rooms_user, body: data['message'])
 
-    ActionCable.server.broadcast 'messaging_channel', { message: message, user: current_user }
+    ActionCable.server.broadcast channel_identifier, { message: message }
+  end
+
+  private
+
+  def channel_identifier
+    # Note, this should be unique to the Room. But since I restricted to one Room. It's fine.
+    'messaging_channel'
   end
 end

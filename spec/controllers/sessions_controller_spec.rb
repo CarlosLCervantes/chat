@@ -3,7 +3,7 @@ require "rails_helper"
 describe SessionsController do
   context "POST create" do
     let!(:carlos_handle) { 'CarlosC' }
-    let!(:carlos) { create(:user, handle: 'CarlosC') }
+    let!(:carlos) { create(:user, handle: carlos_handle) }
     let(:bad_handle) { 'cArLoSc' }
 
     it "can authenticate" do
